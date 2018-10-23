@@ -15,7 +15,11 @@ public class MMGenerator implements Generator {
 
   public MMGenerator(Random rng) {
     this.rng = rng;
-    pool = IntStream.rangeClosed(1, POOL_UPPER_LIMIT).toArray();
+//    pool = IntStream.rangeClosed(1, POOL_UPPER_LIMIT).toArray();
+    pool = new int[POOL_UPPER_LIMIT];
+    for (int i = 0; i < POOL_UPPER_LIMIT; i++) {
+      pool[i] = i + 1;
+    }
   }
 
   @Override
@@ -28,9 +32,8 @@ public class MMGenerator implements Generator {
       pool[source] = temp;
       pick[pool.length - 1 - target] = pool[target];
     }
-    pick[POOL_PICK_SIZE] = 1 + rng.nextInt(BONUS_UPPER_LIMIT );
-    Arrays.sort(pick, 0, POOL_PICK_SIZE );
+    pick[POOL_PICK_SIZE] = 1 + rng.nextInt(BONUS_UPPER_LIMIT);
+    Arrays.sort(pick, 0, POOL_PICK_SIZE);
     return pick;
   }
-
 }
